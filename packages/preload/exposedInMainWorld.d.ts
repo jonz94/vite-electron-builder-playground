@@ -11,4 +11,10 @@ interface Window {
    * window.nodeCrypto('data')
    */
   readonly nodeCrypto: { sha256sum(data: import('crypto').BinaryLike): string };
+  /**
+   * Get font list of the system
+   * @example
+   * window.fontList.getFonts().then(fonts => console.log(fonts)).catch(error => console.log(error))
+   */
+  readonly fontList: { getFonts: Promise<unknown> };
 }

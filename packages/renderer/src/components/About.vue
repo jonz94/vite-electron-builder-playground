@@ -1,30 +1,16 @@
-<template>
-  <h2 id="versions">Lib versions</h2>
-  <div>
-    <ul aria-labelledby="versions">
-      <li v-for="(version, lib) in versions" :key="lib">
-        <strong>{{ lib }}</strong> : v{{ version }}
-      </li>
-    </ul>
-  </div>
-</template>
-
-<script lang="ts">
-import { defineComponent } from 'vue';
-export default defineComponent({
-  name: 'App',
-  setup() {
-    return {
-      versions: window.versions,
-    };
-  },
-});
+<script setup lang="ts">
+const versions = window.versions;
 </script>
 
-<style scoped>
-div {
-  text-align: left;
-  display: grid;
-  justify-content: center;
-}
-</style>
+<template>
+  <div class="grid flex-1 gap-y-8 place-content-center">
+    <h2 class="text-2xl font-bold text-center">Lib versions</h2>
+    <div class="grid justify-center text-left">
+      <ul aria-labelledby="versions">
+        <li v-for="(version, lib) in versions" :key="lib">
+          <strong>{{ lib }}</strong> : v{{ version }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</template>

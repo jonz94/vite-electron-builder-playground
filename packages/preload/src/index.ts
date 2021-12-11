@@ -40,6 +40,11 @@ contextBridge.exposeInMainWorld('nodeCrypto', {
   },
 });
 
+/**
+ * Get font list of the system
+ * @example
+ * window.fontList.getFonts().then(fonts => console.log(fonts)).catch(error => console.log(error))
+ */
 contextBridge.exposeInMainWorld('fontList', {
   getFonts: new Promise((resolve, reject) => {
     fontList
