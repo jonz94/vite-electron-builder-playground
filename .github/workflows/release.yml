@@ -136,11 +136,30 @@ jobs:
           # Password for decrypting `mac_certs`
           # mac_certs_password: ''
       - run: ls dist
-      - uses: actions/upload-artifact@v2
+
+      - name: Upload output (macos)
+        uses: actions/upload-artifact@v2
         if: ${{ matrix.os == 'macos-latest' }}
         with:
-          name: my-artifact
+          name: macos
           path: |
-            path/output/bin/
-            path/output/test-results
-            !path/**/*.tmp
+            dist/**/*
+            !dist/mac/**/*
+
+      - name: Upload output (linux)
+        uses: actions/upload-artifact@v2
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        with:
+          name: linux
+          path: |
+            dist/**/*
+            !dist/linux-unpacked/**/*
+
+      - name: Upload output (windows)
+        uses: actions/upload-artifact@v2
+        if: ${{ matrix.os == 'windows-latest' }}
+        with:
+          name: windows
+          path: |
+            dist/**/*
+            !dist/win-unpacked/**/*

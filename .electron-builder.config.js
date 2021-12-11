@@ -25,7 +25,7 @@ const config = {
     target: ['dmg'],
   },
   win: {
-    target: ['nsis', 'msi'],
+    target: ['nsis'],
   },
 };
 
