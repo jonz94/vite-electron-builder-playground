@@ -18,6 +18,15 @@ const config = {
   extraMetadata: {
     version: process.env.VITE_APP_VERSION,
   },
+  linux: {
+    target: ['AppImage', 'deb', 'rpm'],
+  },
+  mac: {
+    target: ['dmg'],
+  },
+  win: {
+    target: ['nsis', 'msi'],
+  },
 };
 
 module.exports = config;
