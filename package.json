@@ -2,6 +2,7 @@
   "name": "vite-electron-builder",
   "version": "0.0.0",
   "private": true,
+  "description": "Easily view fonts on your system",
   "license": "Unlicense",
   "author": {
     "name": "jonz94",
@@ -11,7 +12,7 @@
   "scripts": {
     "build": "node scripts/build.js",
     "precompile": "cross-env MODE=production npm run build",
-    "compile": "electron-builder build --config .electron-builder.config.js --dir --config.asar=false",
+    "compile": "electron-builder build --config .electron-builder.config.js --dir",
     "format": "prettier --write . && rustywind --write ./packages/renderer/",
     "lint": "eslint . --ext js,ts,vue",
     "pretest": "npm run build",
