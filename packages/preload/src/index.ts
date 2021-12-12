@@ -1,8 +1,5 @@
-import type { BinaryLike } from 'crypto';
-import { createHash } from 'crypto';
 import { contextBridge } from 'electron';
-
-const fontList = require('font-list');
+import { getFonts } from 'font-list';
 
 /**
  * The "Main World" is the JavaScript context that your main renderer code runs in.
@@ -28,30 +25,16 @@ const fontList = require('font-list');
 contextBridge.exposeInMainWorld('versions', process.versions);
 
 /**
- * Safe expose node.js API
- * @example
- * window.nodeCrypto('data')
- */
-contextBridge.exposeInMainWorld('nodeCrypto', {
-  sha256sum(data: BinaryLike) {
-    const hash = createHash('sha256');
-    hash.update(data);
-    return hash.digest('hex');
-  },
-});
-
-/**
  * Get font list of the system
  * @example
  * window.fontList.getFonts().then(fonts => console.log(fonts)).catch(error => console.log(error))
  */
 contextBridge.exposeInMainWorld('fontList', {
-  getFonts: new Promise((resolve, reject) => {
-    fontList
-      .getFonts({ disableQuoting: true })
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .then((fonts: any) => resolve(fonts))
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .catch((error: any) => reject(error));
+  getFonts: new Promise<string[]>((resolve, reject) => {
+    getFonts({ disableQuoting: true })
+      // edge case like: "jf\\-openhuninn\\-1.1"
+      .then((fonts) => fonts.map((font) => font.replaceAll('\\', '')))
+      .then((fonts) => resolve(fonts))
+      .catch((error) => reject(error));
   }),
 });
